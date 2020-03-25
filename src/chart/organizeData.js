@@ -1,3 +1,4 @@
+// 取得したデータを chart で扱える形式に整理する。
 function organizeData() {
     const returnValue = {}
     returnValue.labels = ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']
