@@ -1,6 +1,11 @@
 {
     "type": "bar",
     "options": {
+        "legend": {},
+        "title": {
+            "display": true,
+            "text": "カスタムチャートタイトル"
+        },
         "scales": {
             "yAxes": [
                 {
