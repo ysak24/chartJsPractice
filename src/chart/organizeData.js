@@ -25,6 +25,10 @@ function organizeData() {
     ]
     returnValue.datasets[0].borderWidth = 1
 
+    returnValue.datasets.push({})
+    returnValue.datasets[1].label = '# additional info'
+    returnValue.datasets[1].data = [3, 2, 12, 14, 11, 12]
+
     console.log(returnValue)
     return returnValue
 }
