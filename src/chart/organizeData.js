@@ -35,7 +35,9 @@ function getRecentWeek() {
     for (let i = 0; i < 7; i++) {
         const date = new Date(baseDate)
         date.setDate(date.getDate() - i)
-        const formatDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
+        const paddingMM = ('00' + (date.getMonth() + 1)).slice(-2)
+        const paddingDD = ('00' + (date.getDate())).slice(-2)
+        const formatDate = `${date.getFullYear()}-${paddingMM}-${paddingDD}`
         week.unshift(formatDate)
     }
     return week
