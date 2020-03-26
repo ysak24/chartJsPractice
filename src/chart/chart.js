@@ -2,7 +2,6 @@ import Chart from 'chart.js'
 import config from './config'
 import organizeData from './organizeData.js'
 
-drawChart('telework')
 function drawChart(mode, type) {
     const defaultType = config.defaultType ? config.defaultType : 'line'
     const title = getTitle(mode)
