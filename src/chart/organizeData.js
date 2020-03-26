@@ -2,9 +2,7 @@
 function organizeData(mode = 'telework') {
     const data = {}
     data.labels = getRecentWeek()
-
     data.datasets = getDatasets(data.labels.length, mode)
-
     console.log(data)
     return data
 }
