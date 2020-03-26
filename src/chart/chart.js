@@ -9,8 +9,20 @@ function drawChart(data, type) {
         data: data ? data : organizeData(),
     })
 
+    if(config.backgroundColorSet) {
+        myChart.data.datasets[0].backgroundColor = config.backgroundColorSet
+    }
+    if(config.borderColorSet) {
+        myChart.data.datasets[0].borderColor = config.borderColorSet
+    }
+    if(config.borderWidth) {
+        myChart.data.datasets[0].borderWidth = config.borderWidth
+    }
+
     for (const props of Object.keys(config)) {
-        window.myChart[props] = config[props]
+        if (myChart[props]) {
+            myChart[props] = config[props]
+        }
     }
 }
 drawChart(organizeData())
