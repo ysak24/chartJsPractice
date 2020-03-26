@@ -1,5 +1,9 @@
 {
     "defaultType": "line",
+    "chartTitle": {
+        "telework": "テレワーク利用率",
+        "personal": "なんとかLAN利用率"
+    },
     "backgroundColorSet": [
         "rgba(255, 99, 132, 0.2)",
         "rgba(54, 162, 235, 0.2)",

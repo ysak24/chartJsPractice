@@ -62,8 +62,9 @@ function colorAssignment(data) {
 }
 
 function getTitle(mode) {
-    if (mode == 'telework') return 'テレワーク利用率'
-    if (mode == 'personal') return 'なんとかLAN利用率'
+    if (Object.keys(config.chartTitle).includes(mode)) {
+        return config.chartTitle[mode]
+    }
     console.log('use default value.')
     return 'テレワーク利用率'
 }
