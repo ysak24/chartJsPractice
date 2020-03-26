@@ -5,7 +5,7 @@ import organizeData from './organizeData.js'
 function drawChart(data, type) {
     const ctx = document.getElementById('myChart').getContext('2d')
     window.myChart = new Chart(ctx, {
-        type: type ? type : 'bar',
+        type: type ? type : config.defaultType,
         data: data ? data : organizeData(),
     })
 
