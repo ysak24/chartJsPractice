@@ -5,9 +5,8 @@ import organizeData from './organizeData.js'
 drawChart('telework')
 function drawChart(mode, type) {
     const defaultType = config.defaultType ? config.defaultType : 'line'
-    const title = mode == 'telework' ? 'テレワーク利用率'
-        : mode == 'personal' ? 'なんとかLAN利用率'
-            : undefined
+    const title = getTitle(mode)
+
     const ctx = document.getElementById('myChart').getContext('2d')
     window.myChart = new Chart(ctx, {
         type: type ? type : defaultType,
@@ -15,7 +14,7 @@ function drawChart(mode, type) {
         options: {
             title: {
                 display: true,
-                text: title ? title : 'テレワーク利用率'
+                text: title
             },
             scales: {
                 yAxes: [{
@@ -46,6 +45,7 @@ const chartControl = {
 }
 export default chartControl
 
+
 function colorAssignment(data) {
     for (let i = 0; i < data.datasets.length; i++) {
         if (config.backgroundColorSet) {
@@ -59,4 +59,11 @@ function colorAssignment(data) {
         }
     }
     return data
-} 
+}
+
+function getTitle(mode) {
+    if (mode == 'telework') return 'テレワーク利用率'
+    if (mode == 'personal') return 'なんとかLAN利用率'
+    console.log('use default value.')
+    return 'テレワーク利用率'
+}

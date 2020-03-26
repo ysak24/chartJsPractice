@@ -10,6 +10,7 @@ function organizeData(mode = 'telework') {
 }
 export default organizeData
 
+
 function getDatasets(length, mode) {
     const datasets = []
     if (mode == 'personal') {
