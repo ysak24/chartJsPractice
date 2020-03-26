@@ -10,9 +10,19 @@ function drawChart(data, type) {
     })
 
     if (config.backgroundColorSet) {
+        if (myChart.data.labels.length > config.backgroundColorSet.length) {
+            // カラーセットの中身を複製して配列を延長
+            console.log('myChart.data.labels.length', myChart.data.labels.length)
+            console.log('backgroundColorSet.length', config.backgroundColorSet.length)
+        }
         myChart.data.datasets[0].backgroundColor = config.backgroundColorSet
     }
     if (config.borderColorSet) {
+        if (myChart.data.labels.length > config.borderColorSet.length) {
+            // カラーセットの中身を複製して配列を延長
+            console.log('myChart.data.labels.length', myChart.data.labels.length)
+            console.log('borderColorSet.length', config.borderColorSet.length)
+        }
         myChart.data.datasets[0].borderColor = config.borderColorSet
     }
     if (config.borderWidth) {
