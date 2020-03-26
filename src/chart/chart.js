@@ -9,6 +9,11 @@ function drawChart(data, type) {
         data: data ? data : organizeData(),
     })
 
+    for (const props of Object.keys(config)) {
+        if (myChart[props]) {
+            myChart[props] = config[props]
+        }
+    }
     if (config.backgroundColorSet) {
         if (myChart.data.labels.length > config.backgroundColorSet.length) {
             // カラーセットの中身を複製して配列を延長
@@ -27,12 +32,6 @@ function drawChart(data, type) {
     }
     if (config.borderWidth) {
         myChart.data.datasets[0].borderWidth = config.borderWidth
-    }
-
-    for (const props of Object.keys(config)) {
-        if (myChart[props]) {
-            myChart[props] = config[props]
-        }
     }
 }
 drawChart(organizeData())
