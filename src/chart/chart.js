@@ -5,28 +5,30 @@ import organizeData from './organizeData.js'
 drawChart('telework')
 function drawChart(mode, type) {
     const defaultType = config.defaultType ? config.defaultType : 'line'
+    const title = mode == 'telework' ? 'テレワーク利用率'
+        : mode == 'personal' ? 'なんとかLAN利用率'
+            : undefined
     const ctx = document.getElementById('myChart').getContext('2d')
     window.myChart = new Chart(ctx, {
         type: type ? type : defaultType,
-        data: organizeData(mode),
+        data: colorAssignment(organizeData(mode)),
+        options: {
+            title: {
+                display: true,
+                text: title ? title : 'テレワーク利用率'
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        callback: function (value, index, values) {
+                            return value + '%'
+                        }
+                    }
+                }]
+            }
+        }
     })
-
-    for (const props of Object.keys(config)) {
-        if (myChart[props]) {
-            myChart[props] = config[props]
-        }
-    }
-    for (let i = 0; i < myChart.data.datasets.length; i++) {
-        if (config.backgroundColorSet) {
-            myChart.data.datasets[i].backgroundColor = config.backgroundColorSet[i]
-        }
-        if (config.borderColorSet) {
-            myChart.data.datasets[i].borderColor = config.borderColorSet[i]
-        }
-        if (config.borderWidth) {
-            myChart.data.datasets[i].borderWidth = config.borderWidth
-        }
-    }
 }
 
 function redraw(options = {}) {
@@ -43,3 +45,18 @@ const chartControl = {
     redraw
 }
 export default chartControl
+
+function colorAssignment(data) {
+    for (let i = 0; i < data.datasets.length; i++) {
+        if (config.backgroundColorSet) {
+            data.datasets[i].backgroundColor = config.backgroundColorSet[i]
+        }
+        if (config.borderColorSet) {
+            data.datasets[i].borderColor = config.borderColorSet[i]
+        }
+        if (config.borderWidth) {
+            data.datasets[i].borderWidth = config.borderWidth
+        }
+    }
+    return data
+} 

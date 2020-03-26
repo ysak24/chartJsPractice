@@ -16,21 +16,5 @@
         "rgba(153, 102, 255, 1)",
         "rgba(255, 159, 64, 1)"
     ],
-    "borderWidth": 1,
-    "options": {
-        "legend": {},
-        "title": {
-            "display": true,
-            "text": "Utilization rate"
-        },
-        "scales": {
-            "yAxes": [
-                {
-                    "ticks": {
-                        "beginAtZero": true
-                    }
-                }
-            ]
-        }
-    }
+    "borderWidth": 1
 }

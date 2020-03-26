@@ -14,11 +14,11 @@ function getDatasets(length, mode) {
     const datasets = []
     if (mode == 'personal') {
         datasets.push({})
-        datasets[0].label = '# Mail Box'
+        datasets[0].label = '# メールボックス'
         datasets[0].data = getData(length)
 
         datasets.push({})
-        datasets[1].label = '# Personal Folder'
+        datasets[1].label = '# 個人用フォルダ'
         datasets[1].data = getData(length)
     } else if (mode == 'telework') {
         datasets.push({})
@@ -26,7 +26,7 @@ function getDatasets(length, mode) {
         datasets[0].data = getData(length)
 
         datasets.push({})
-        datasets[1].label = '# USB Thin client'
+        datasets[1].label = '# USBシンクライアント'
         datasets[1].data = getData(length)
 
         datasets.push({})
