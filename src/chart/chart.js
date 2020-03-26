@@ -6,6 +6,7 @@ drawChart('telework')
 function drawChart(mode, type) {
     const defaultType = config.defaultType ? config.defaultType : 'line'
     const title = getTitle(mode)
+    const dataMax = 300
 
     const ctx = document.getElementById('myChart').getContext('2d')
     window.myChart = new Chart(ctx, {
@@ -20,8 +21,11 @@ function drawChart(mode, type) {
                 yAxes: [{
                     ticks: {
                         beginAtZero: true,
+                        max: dataMax,
+                        min: 0,
+                        stepSize: dataMax / 10,
                         callback: function (value, index, values) {
-                            return value + '%'
+                            return (value / dataMax) * 100 + '%'
                         }
                     }
                 }]

@@ -38,7 +38,7 @@ function getDatasets(length, mode) {
 function getData(length) {
     const data = []
     for (let i = 0; i < length; i++) {
-        data.push(Math.floor(Math.random() * 100))
+        data.push(Math.floor(Math.random() * 300))
     }
     return data
 }
