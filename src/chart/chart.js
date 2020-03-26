@@ -4,9 +4,10 @@ import organizeData from './organizeData.js'
 
 drawChart()
 function drawChart(type) {
+    const defaultType = config.defaultType ? config.defaultType : 'line'
     const ctx = document.getElementById('myChart').getContext('2d')
     window.myChart = new Chart(ctx, {
-        type: type ? type : config.defaultType,
+        type: type ? type : defaultType,
         data: organizeData(),
     })
 
@@ -16,23 +17,19 @@ function drawChart(type) {
         }
     }
     if (config.backgroundColorSet) {
-        if (myChart.data.labels.length > config.backgroundColorSet.length) {
-            // カラーセットの中身を複製して配列を延長
-            console.log('myChart.data.labels.length', myChart.data.labels.length)
-            console.log('backgroundColorSet.length', config.backgroundColorSet.length)
-        }
-        myChart.data.datasets[0].backgroundColor = config.backgroundColorSet
+        myChart.data.datasets[0].backgroundColor = config.backgroundColorSet[0]
+        myChart.data.datasets[1].backgroundColor = config.backgroundColorSet[1]
+        myChart.data.datasets[2].backgroundColor = config.backgroundColorSet[2]
     }
     if (config.borderColorSet) {
-        if (myChart.data.labels.length > config.borderColorSet.length) {
-            // カラーセットの中身を複製して配列を延長
-            console.log('myChart.data.labels.length', myChart.data.labels.length)
-            console.log('borderColorSet.length', config.borderColorSet.length)
-        }
-        myChart.data.datasets[0].borderColor = config.borderColorSet
+        myChart.data.datasets[0].borderColor = config.borderColorSet[0]
+        myChart.data.datasets[1].borderColor = config.borderColorSet[1]
+        myChart.data.datasets[2].borderColor = config.borderColorSet[2]
     }
     if (config.borderWidth) {
         myChart.data.datasets[0].borderWidth = config.borderWidth
+        myChart.data.datasets[1].borderWidth = config.borderWidth
+        myChart.data.datasets[2].borderWidth = config.borderWidth
     }
 }
 

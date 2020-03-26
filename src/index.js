@@ -13,3 +13,6 @@ document.getElementById('pie').onclick = function () { chartControl.redraw('pie'
 document.getElementById('polarArea').onclick = function () { chartControl.redraw('polarArea') }
 document.getElementById('bubble').onclick = function () { chartControl.redraw('bubble') }
 document.getElementById('scatter').onclick = function () { chartControl.redraw('scatter') }
+
+document.getElementById('personal').onclick = function () { }
+document.getElementById('telework').onclick = function () { }

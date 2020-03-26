@@ -21,7 +21,7 @@
         "legend": {},
         "title": {
             "display": true,
-            "text": "カスタムチャートタイトル"
+            "text": "Utilization rate"
         },
         "scales": {
             "yAxes": [
