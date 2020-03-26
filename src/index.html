@@ -12,22 +12,34 @@
     <canvas id="myChart" height="100px"></canvas>
 
     <h3>再描画 & type change</h3>
-    <div>
-        <button type="button" id="default">default</button>
-        <button type="button" id="line">line</button>
-        <button type="button" id="bar">bar</button>
-        <button type="button" id="radar">radar</button>
-        <button type="button" id="pie">pie</button>
-        <button type="button" id="polarArea">polarArea</button>
-        <button type="button" id="bubble">bubble</button>
-        <button type="button" id="scatter">scatter</button>
-    </div>
-    
-    <h3>切り替え</h3>
-    <div>
-        <button type="button" id="personal">personalData</button>
-        <button type="button" id="telework">teleworkData</button>
-    </div>
+    <form id="drawOptions">
+        <div>
+            <input type="radio" id="default" name="type" value="" checked>
+            <label for="default">default</label>
+            <input type="radio" id="line" name="type" value="line">
+            <label for="line">line</label>
+            <input type="radio" id="bar" name="type" value="bar">
+            <label for="bar">bar</label>
+            <input type="radio" id="radar" name="type" value="radar">
+            <label for="radar">radar</label>
+            <input type="radio" id="pie" name="type" value="pie">
+            <label for="pie">pie</label>
+            <input type="radio" id="polarArea" name="type" value="polarArea">
+            <label for="polarArea">polarArea</label>
+            <input type="radio" id="bubble" name="type" value="bubble">
+            <label for="bubble">bubble</label>
+            <input type="radio" id="scatter" name="type" value="scatter">
+            <label for="scatter">scatter</label>
+        </div>
+
+        <h3>切り替え</h3>
+        <div>
+            <input type="radio" id="telework" name="mode" value="telework" checked>
+            <label for="telework">teleworkData</label>
+            <input type="radio" id="personal" name="mode" value="personal">
+            <label for="personal">personalData</label>
+        </div>
+    </form>
 </body>
 
 </html>

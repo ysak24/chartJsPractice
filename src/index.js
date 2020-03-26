@@ -5,14 +5,9 @@ import 'regenerator-runtime/runtime'
 
 import chartControl from './chart/chart.js'
 
-document.getElementById('default').onclick = function () { chartControl.redraw() }
-document.getElementById('line').onclick = function () { chartControl.redraw('line') }
-document.getElementById('bar').onclick = function () { chartControl.redraw('bar') }
-document.getElementById('radar').onclick = function () { chartControl.redraw('radar') }
-document.getElementById('pie').onclick = function () { chartControl.redraw('pie') }
-document.getElementById('polarArea').onclick = function () { chartControl.redraw('polarArea') }
-document.getElementById('bubble').onclick = function () { chartControl.redraw('bubble') }
-document.getElementById('scatter').onclick = function () { chartControl.redraw('scatter') }
-
-document.getElementById('personal').onclick = function () { }
-document.getElementById('telework').onclick = function () { }
+document.getElementById('drawOptions').onclick = function () { chartChange() }
+function chartChange() {
+    const form = document.getElementById('drawOptions')
+    chartControl.redraw({ type: form.type.value, mode: form.mode.value })
+}
+ 

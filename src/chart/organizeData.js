@@ -1,25 +1,40 @@
 // 取得したデータを chart で扱える形式に整理する。
-function organizeData() {
+function organizeData(mode = 'telework') {
     const data = {}
     data.labels = getRecentWeek()
 
-    data.datasets = []
-    data.datasets.push({})
-    data.datasets[0].label = '# Direct Access'
-    data.datasets[0].data = getData(data.labels.length)
-
-    data.datasets.push({})
-    data.datasets[1].label = '# USB Thin client'
-    data.datasets[1].data = getData(data.labels.length)
-
-    data.datasets.push({})
-    data.datasets[2].label = '# Cachatto'
-    data.datasets[2].data = getData(data.labels.length)
+    data.datasets = getDatasets(data.labels.length, mode)
 
     console.log(data)
     return data
 }
 export default organizeData
+
+function getDatasets(length, mode) {
+    const datasets = []
+    if (mode == 'personal') {
+        datasets.push({})
+        datasets[0].label = '# Mail Box'
+        datasets[0].data = getData(length)
+
+        datasets.push({})
+        datasets[1].label = '# Personal Folder'
+        datasets[1].data = getData(length)
+    } else if (mode == 'telework') {
+        datasets.push({})
+        datasets[0].label = '# Direct Access'
+        datasets[0].data = getData(length)
+
+        datasets.push({})
+        datasets[1].label = '# USB Thin client'
+        datasets[1].data = getData(length)
+
+        datasets.push({})
+        datasets[2].label = '# Cachatto'
+        datasets[2].data = getData(length)
+    }
+    return datasets
+}
 
 function getData(length) {
     const data = []

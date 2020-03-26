@@ -2,13 +2,13 @@ import Chart from 'chart.js'
 import config from './config'
 import organizeData from './organizeData.js'
 
-drawChart()
-function drawChart(type) {
+drawChart('telework')
+function drawChart(mode, type) {
     const defaultType = config.defaultType ? config.defaultType : 'line'
     const ctx = document.getElementById('myChart').getContext('2d')
     window.myChart = new Chart(ctx, {
         type: type ? type : defaultType,
-        data: organizeData(),
+        data: organizeData(mode),
     })
 
     for (const props of Object.keys(config)) {
@@ -16,28 +16,26 @@ function drawChart(type) {
             myChart[props] = config[props]
         }
     }
-    if (config.backgroundColorSet) {
-        myChart.data.datasets[0].backgroundColor = config.backgroundColorSet[0]
-        myChart.data.datasets[1].backgroundColor = config.backgroundColorSet[1]
-        myChart.data.datasets[2].backgroundColor = config.backgroundColorSet[2]
-    }
-    if (config.borderColorSet) {
-        myChart.data.datasets[0].borderColor = config.borderColorSet[0]
-        myChart.data.datasets[1].borderColor = config.borderColorSet[1]
-        myChart.data.datasets[2].borderColor = config.borderColorSet[2]
-    }
-    if (config.borderWidth) {
-        myChart.data.datasets[0].borderWidth = config.borderWidth
-        myChart.data.datasets[1].borderWidth = config.borderWidth
-        myChart.data.datasets[2].borderWidth = config.borderWidth
+    for (let i = 0; i < myChart.data.datasets.length; i++) {
+        if (config.backgroundColorSet) {
+            myChart.data.datasets[i].backgroundColor = config.backgroundColorSet[i]
+        }
+        if (config.borderColorSet) {
+            myChart.data.datasets[i].borderColor = config.borderColorSet[i]
+        }
+        if (config.borderWidth) {
+            myChart.data.datasets[i].borderWidth = config.borderWidth
+        }
     }
 }
 
-function redraw(type) {
+function redraw(options = {}) {
     if (myChart && myChart.destroy) {
         myChart.destroy()
     }
-    drawChart(type)
+    const mode = options.mode ? options.mode : undefined
+    const type = options.type ? options.type : undefined
+    drawChart(mode, type)
 }
 
 const chartControl = {
