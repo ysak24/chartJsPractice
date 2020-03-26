@@ -9,13 +9,13 @@ function drawChart(data, type) {
         data: data ? data : organizeData(),
     })
 
-    if(config.backgroundColorSet) {
+    if (config.backgroundColorSet) {
         myChart.data.datasets[0].backgroundColor = config.backgroundColorSet
     }
-    if(config.borderColorSet) {
+    if (config.borderColorSet) {
         myChart.data.datasets[0].borderColor = config.borderColorSet
     }
-    if(config.borderWidth) {
+    if (config.borderWidth) {
         myChart.data.datasets[0].borderWidth = config.borderWidth
     }
 
