@@ -1,6 +1,6 @@
 import Chart from 'chart.js'
 import config from './config'
-import organizeData from './organizeData.js'
+import getChartData from './getChartData.js'
 
 function drawChart(mode, type) {
     const defaultType = config.defaultType ? config.defaultType : 'line'
@@ -10,7 +10,7 @@ function drawChart(mode, type) {
     const ctx = document.getElementById('myChart').getContext('2d')
     window.myChart = new Chart(ctx, {
         type: type ? type : defaultType,
-        data: colorAssignment(organizeData(mode)),
+        data: getData(mode),
         options: {
             title: {
                 display: true,
@@ -49,19 +49,25 @@ const chartControl = {
 export default chartControl
 
 
-function colorAssignment(data) {
-    for (let i = 0; i < data.datasets.length; i++) {
+function getData(mode) {
+    const data = getChartData(mode)
+    data.datasets = colorAssignment(data.datasets)
+    return data
+}
+
+function colorAssignment(datasets) {
+    for (let i = 0; i < datasets.length; i++) {
         if (config.backgroundColorSet) {
-            data.datasets[i].backgroundColor = config.backgroundColorSet[i]
+            datasets[i].backgroundColor = config.backgroundColorSet[i]
         }
         if (config.borderColorSet) {
-            data.datasets[i].borderColor = config.borderColorSet[i]
+            datasets[i].borderColor = config.borderColorSet[i]
         }
         if (config.borderWidth) {
-            data.datasets[i].borderWidth = config.borderWidth
+            datasets[i].borderWidth = config.borderWidth
         }
     }
-    return data
+    return datasets
 }
 
 function getTitle(mode) {

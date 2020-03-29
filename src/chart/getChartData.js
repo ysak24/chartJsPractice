@@ -1,12 +1,12 @@
 // 取得したデータを chart で扱える形式に整理する。
-function organizeData(mode = 'telework') {
+function getChartData(mode = 'telework') {
     const data = {}
     data.labels = getRecentWeek()
     data.datasets = getDatasets(data.labels.length, mode)
     console.log(data)
     return data
 }
-export default organizeData
+export default getChartData
 
 
 function getDatasets(length, mode) {
@@ -14,28 +14,28 @@ function getDatasets(length, mode) {
     if (mode == 'personal') {
         datasets.push({})
         datasets[0].label = '# メールボックス'
-        datasets[0].data = getData(length)
+        datasets[0].data = getSourceData(length)
 
         datasets.push({})
         datasets[1].label = '# 個人用フォルダ'
-        datasets[1].data = getData(length)
+        datasets[1].data = getSourceData(length)
     } else if (mode == 'telework') {
         datasets.push({})
         datasets[0].label = '# Direct Access'
-        datasets[0].data = getData(length)
+        datasets[0].data = getSourceData(length)
 
         datasets.push({})
         datasets[1].label = '# USBシンクライアント'
-        datasets[1].data = getData(length)
+        datasets[1].data = getSourceData(length)
 
         datasets.push({})
         datasets[2].label = '# Cachatto'
-        datasets[2].data = getData(length)
+        datasets[2].data = getSourceData(length)
     }
     return datasets
 }
 
-function getData(length) {
+function getSourceData(length) {
     const data = []
     for (let i = 0; i < length; i++) {
         data.push(Math.floor(Math.random() * 300))
