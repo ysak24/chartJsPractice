@@ -12,18 +12,16 @@ function getChartData(mode = 'telework') {
         sourceData.push({ label: '# Cachatto', ...getSourceData('Cachatto', labels.length) })
     }
 
-    const datasets = []
-    const maxData = []
-    for (const d of sourceData) {
-        datasets.push({
+    const datasets = sourceData.map(d => {
+        return {
             label: d.label,
             data: d.data
-        })
-        // 手抜きしないなら id をキーにする？
-        maxData.push(
-            d.max
-        )
-    }
+        }
+    })
+    // 手抜きしないなら id をキーにする？
+    const maxData = sourceData.map(d => {
+        return d.max
+    })
     return { data: { labels, datasets }, options: { maxData } }
 }
 export default getChartData

@@ -6,7 +6,9 @@ import 'regenerator-runtime/runtime'
 import './index.css'
 import chartControl from './chart/chart.js'
 
-document.DOMContentLoaded = chartControl.drawChart('telework')
+document.addEventListener('DOMContentLoaded', (event) => {
+    chartControl.drawChart('telework')
+})
 
 document.getElementById('default').onclick = function () { chartChange() }
 document.getElementById('line').onclick = function () { chartChange() }
@@ -24,4 +26,3 @@ function chartChange() {
     const form = document.getElementById('drawOptions')
     chartControl.redraw({ type: form.type.value, mode: form.mode.value })
 }
- 
