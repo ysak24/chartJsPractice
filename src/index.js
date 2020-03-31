@@ -6,7 +6,7 @@ import 'regenerator-runtime/runtime'
 import './index.css'
 import chartControl from './chart/chart.js'
 
-chartControl.drawChart('telework')
+document.DOMContentLoaded = chartControl.drawChart('telework')
 
 document.getElementById('default').onclick = function () { chartChange() }
 document.getElementById('line').onclick = function () { chartChange() }
