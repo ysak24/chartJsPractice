@@ -3,51 +3,11 @@ import config from './config'
 import getChartData from './getChartData.js'
 
 function drawChart(mode, type) {
-    const defaultType = config.defaultType ? config.defaultType : 'line'
-    const title = getTitle(mode)
-    const dataMax1 = 300
-    const dataMax2 = 200
-
     const ctx = document.getElementById('myChart').getContext('2d')
     window.myChart = new Chart(ctx, {
-        type: type ? type : defaultType,
+        type: getType(type),
         data: getData(mode),
-        options: {
-            title: {
-                display: true,
-                text: title
-            },
-            scales: {
-                yAxes: [
-                    {
-                        id: "y-axis-1",
-                        position: "left",
-                        ticks: {
-                            beginAtZero: true,
-                            max: dataMax1,
-                            min: 0,
-                            stepSize: dataMax1 / 10,
-                            callback: function (value, index, values) {
-                                return (value / dataMax1) * 100 + '%'
-                            }
-                        }
-                    },
-                    {
-                        id: "y-axis-2",
-                        position: "right",
-                        ticks: {
-                            beginAtZero: true,
-                            max: dataMax2,
-                            min: 0,
-                            stepSize: dataMax2 / 10,
-                            callback: function (value, index, values) {
-                                return ''
-                            }
-                        }
-                    }
-                ]
-            }
-        }
+        options: getOptions(mode)
     })
 }
 
@@ -66,6 +26,19 @@ const chartControl = {
 }
 export default chartControl
 
+
+function getType(type) {
+    const availableType = ['line', 'bar', 'radar', 'pie', 'polarArea', 'bubble', 'scatter']
+    if (type && availableType.includes(type)) {
+        return type
+    }
+    if (config.defaultType && availableType.includes(config.defaultType)) {
+        return config.defaultType
+    }
+    console.log('available type is not found.')
+    console.log('set the default value.')
+    return 'line'
+}
 
 function getData(mode) {
     const data = getChartData(mode)
@@ -88,10 +61,52 @@ function colorAssignment(datasets) {
     return datasets
 }
 
+function getOptions(mode) {
+    const options = {}
+
+    const title = getTitle(mode)
+    options.title = {
+        display: true,
+        text: title
+    }
+    options.scales = {}
+    options.scales.yAxes = []
+    const dataMax1 = 300
+    options.scales.yAxes.push({
+        id: "y-axis-1",
+        position: "left",
+        ticks: {
+            beginAtZero: true,
+            max: dataMax1,
+            min: 0,
+            stepSize: dataMax1 / 10,
+            callback: function (value, index, values) {
+                return (value / dataMax1) * 100 + '%'
+            }
+        }
+    })
+    const dataMax2 = 200
+    options.scales.yAxes.push({
+        id: "y-axis-2",
+        position: "right",
+        ticks: {
+            beginAtZero: true,
+            max: dataMax2,
+            min: 0,
+            stepSize: dataMax2 / 10,
+            callback: function (value, index, values) {
+                return ''
+            }
+        }
+    })
+    return options
+}
+
 function getTitle(mode) {
     if (Object.keys(config.chartTitle).includes(mode)) {
         return config.chartTitle[mode]
     }
-    console.log('use default value.')
+    console.log('chartTitle is not found.')
+    console.log('set the default value.')
     return 'テレワーク利用率'
 }
