@@ -1,56 +1,41 @@
 // 取得したデータを chart で扱える形式に整理する。
 function getChartData(mode = 'telework') {
-    const data = {}
-    data.labels = getRecentWeek()
-    data.datasets = getDatasets(data.labels.length, mode)
-    console.log(data)
-    return data
+    const labels = getRecentWeek()
+
+    const sourceData = []
+    if (mode == 'personal') {
+        sourceData.push({ label: '# メールボックス', ...getSourceData('mailBox', labels.length) })
+        sourceData.push({ label: '# 個人用フォルダ', ...getSourceData('personalFolder', labels.length) })
+    } else if (mode == 'telework') {
+        sourceData.push({ label: '# Direct Access', ...getSourceData('DirectAccess', labels.length) })
+        sourceData.push({ label: '# USBシンクライアント', ...getSourceData('USBThinClient', labels.length) })
+        sourceData.push({ label: '# Cachatto', ...getSourceData('Cachatto', labels.length) })
+    }
+
+    const datasets = []
+    const maxData = []
+    for (const d of sourceData) {
+        datasets.push({
+            label: d.label,
+            data: d.data
+        })
+        // 手抜きしないなら id をキーにする？
+        maxData.push(
+            d.max
+        )
+    }
+    return { data: { labels, datasets }, options: { maxData } }
 }
 export default getChartData
 
-
-function getDatasets(length, mode) {
-    const datasets = []
-    if (mode == 'personal') {
-        datasets.push({})
-        datasets[0].label = '# メールボックス'
-        datasets[0].data = getSourceData(length)
-        datasets[0].yAxisID = "y-axis-1"
-
-        datasets.push({})
-        datasets[1].label = '# 個人用フォルダ'
-        datasets[1].data = getSourceData200(length)
-        datasets[1].yAxisID = "y-axis-2"
-    } else if (mode == 'telework') {
-        datasets.push({})
-        datasets[0].label = '# Direct Access'
-        datasets[0].data = getSourceData(length)
-
-        datasets.push({})
-        datasets[1].label = '# USBシンクライアント'
-        datasets[1].data = getSourceData(length)
-
-        datasets.push({})
-        datasets[2].label = '# Cachatto'
-        datasets[2].data = getSourceData(length)
-    }
-    return datasets
-}
-
-function getSourceData(length) {
+function getSourceData(source, length) {
     const data = []
+    const max = source == 'personalFolder'
+        ? 200 : 300
     for (let i = 0; i < length; i++) {
-        data.push(Math.floor(Math.random() * 300))
+        data.push(Math.floor(Math.random() * max))
     }
-    return data
-}
-
-function getSourceData200(length) {
-    const data = []
-    for (let i = 0; i < length; i++) {
-        data.push(Math.floor(Math.random() * 200))
-    }
-    return data
+    return { data: data, max: max }
 }
 
 function getRecentWeek() {

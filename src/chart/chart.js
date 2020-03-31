@@ -3,11 +3,13 @@ import config from './config'
 import getChartData from './getChartData.js'
 
 function drawChart(mode, type) {
+    const chartData = getChartData(mode)
+
     const ctx = document.getElementById('myChart').getContext('2d')
     window.myChart = new Chart(ctx, {
         type: getType(type),
-        data: getData(mode),
-        options: getOptions(mode)
+        data: getData(chartData.data),
+        options: getOptions(chartData.options, mode)
     })
 }
 
@@ -28,11 +30,11 @@ export default chartControl
 
 
 function getType(type) {
-    const availableType = ['line', 'bar', 'radar', 'pie', 'polarArea', 'bubble', 'scatter']
-    if (type && availableType.includes(type)) {
+    const availableTypes = ['line', 'bar', 'radar', 'pie', 'polarArea', 'bubble', 'scatter']
+    if (type && availableTypes.includes(type)) {
         return type
     }
-    if (config.defaultType && availableType.includes(config.defaultType)) {
+    if (config.defaultType && availableTypes.includes(config.defaultType)) {
         return config.defaultType
     }
     console.log('available type is not found.')
@@ -40,10 +42,10 @@ function getType(type) {
     return 'line'
 }
 
-function getData(mode) {
-    const data = getChartData(mode)
-    data.datasets = colorAssignment(data.datasets)
-    return data
+function getData(data) {
+    const returnValue = data
+    returnValue.datasets = colorAssignment(data.datasets)
+    return returnValue
 }
 
 function colorAssignment(datasets) {
@@ -57,48 +59,50 @@ function colorAssignment(datasets) {
         if (config.borderWidth) {
             datasets[i].borderWidth = config.borderWidth
         }
+        // やっつけ
+        if (i == 0) {
+            datasets[i].yAxisID = "y-axis-1"
+        }
+        if (i == 1) {
+            datasets[i].yAxisID = "y-axis-2"
+        }
     }
     return datasets
 }
 
-function getOptions(mode) {
-    const options = {}
-
-    const title = getTitle(mode)
-    options.title = {
+function getOptions(options, mode) {
+    const title = {
         display: true,
-        text: title
+        text: getTitle(mode)
     }
-    options.scales = { yAxes: [] }
-    const dataMax1 = 300
-    options.scales.yAxes.push({
+    const scales = { yAxes: [] }
+    scales.yAxes.push({
         id: "y-axis-1",
         position: "left",
         ticks: {
             beginAtZero: true,
-            max: dataMax1,
+            max: options.maxData[0],
             min: 0,
-            stepSize: dataMax1 / 10,
+            stepSize: options.maxData[0] / 10,
             callback: function (value, index, values) {
-                return (value / dataMax1) * 100 + '%'
+                return (value / options.maxData[0]) * 100 + '%'
             }
         }
     })
-    const dataMax2 = 200
-    options.scales.yAxes.push({
+    scales.yAxes.push({
         id: "y-axis-2",
         position: "right",
         ticks: {
             beginAtZero: true,
-            max: dataMax2,
+            max: options.maxData[1],
             min: 0,
-            stepSize: dataMax2 / 10,
+            stepSize: options.maxData[1] / 10,
             callback: function (value, index, values) {
                 return ''
             }
         }
     })
-    return options
+    return { title, scales }
 }
 
 function getTitle(mode) {
