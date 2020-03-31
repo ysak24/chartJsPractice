@@ -44,11 +44,11 @@ function getType(type) {
 
 function getData(data) {
     const returnValue = data
-    returnValue.datasets = colorAssignment(data.datasets)
+    returnValue.datasets = assignColor(data.datasets)
     return returnValue
 }
 
-function colorAssignment(datasets) {
+function assignColor(datasets) {
     for (let i = 0; i < datasets.length; i++) {
         if (config.backgroundColorSet) {
             datasets[i].backgroundColor = config.backgroundColorSet[i]
