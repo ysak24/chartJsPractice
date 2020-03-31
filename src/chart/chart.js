@@ -5,7 +5,8 @@ import getChartData from './getChartData.js'
 function drawChart(mode, type) {
     const defaultType = config.defaultType ? config.defaultType : 'line'
     const title = getTitle(mode)
-    const dataMax = 300
+    const dataMax1 = 300
+    const dataMax2 = 200
 
     const ctx = document.getElementById('myChart').getContext('2d')
     window.myChart = new Chart(ctx, {
@@ -17,17 +18,34 @@ function drawChart(mode, type) {
                 text: title
             },
             scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true,
-                        max: dataMax,
-                        min: 0,
-                        stepSize: dataMax / 10,
-                        callback: function (value, index, values) {
-                            return (value / dataMax) * 100 + '%'
+                yAxes: [
+                    {
+                        id: "y-axis-1",
+                        position: "left",
+                        ticks: {
+                            beginAtZero: true,
+                            max: dataMax1,
+                            min: 0,
+                            stepSize: dataMax1 / 10,
+                            callback: function (value, index, values) {
+                                return (value / dataMax1) * 100 + '%'
+                            }
+                        }
+                    },
+                    {
+                        id: "y-axis-2",
+                        position: "right",
+                        ticks: {
+                            beginAtZero: true,
+                            max: dataMax2,
+                            min: 0,
+                            stepSize: dataMax2 / 10,
+                            callback: function (value, index, values) {
+                                return ''
+                            }
                         }
                     }
-                }]
+                ]
             }
         }
     })

@@ -15,10 +15,12 @@ function getDatasets(length, mode) {
         datasets.push({})
         datasets[0].label = '# メールボックス'
         datasets[0].data = getSourceData(length)
+        datasets[0].yAxisID = "y-axis-1"
 
         datasets.push({})
         datasets[1].label = '# 個人用フォルダ'
-        datasets[1].data = getSourceData(length)
+        datasets[1].data = getSourceData200(length)
+        datasets[1].yAxisID = "y-axis-2"
     } else if (mode == 'telework') {
         datasets.push({})
         datasets[0].label = '# Direct Access'
@@ -39,6 +41,14 @@ function getSourceData(length) {
     const data = []
     for (let i = 0; i < length; i++) {
         data.push(Math.floor(Math.random() * 300))
+    }
+    return data
+}
+
+function getSourceData200(length) {
+    const data = []
+    for (let i = 0; i < length; i++) {
+        data.push(Math.floor(Math.random() * 200))
     }
     return data
 }
