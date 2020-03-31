@@ -69,8 +69,7 @@ function getOptions(mode) {
         display: true,
         text: title
     }
-    options.scales = {}
-    options.scales.yAxes = []
+    options.scales = { yAxes: [] }
     const dataMax1 = 300
     options.scales.yAxes.push({
         id: "y-axis-1",
