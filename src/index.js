@@ -3,6 +3,7 @@ import 'whatwg-fetch'
 import 'core-js'
 import 'regenerator-runtime/runtime'
 
+import './index.css'
 import chartControl from './chart/chart.js'
 
 chartControl.drawChart('telework')
