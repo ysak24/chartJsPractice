@@ -2,6 +2,13 @@
 function getChartData(mode = 'telework') {
     const labels = getRecentWeek()
 
+    // 正常
+    // メール未使用
+    // 取得失敗
+    // readfile 
+
+    // 最終取得日時
+
     const sourceData = []
     if (mode == 'personal') {
         // パーセンテージ, 円, 横棒, 並べる
