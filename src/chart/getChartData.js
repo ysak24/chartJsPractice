@@ -4,9 +4,11 @@ function getChartData(mode = 'telework') {
 
     const sourceData = []
     if (mode == 'personal') {
-        sourceData.push({ label: '# メールボックス', ...getSourceData('mailBox', labels.length) })
-        sourceData.push({ label: '# 個人用フォルダ', ...getSourceData('personalFolder', labels.length) })
+        // パーセンテージ, 円, 横棒, 並べる
+        // sourceData.push({ label: '# メールボックス', ...getSourceData('mailBox', labels.length) })
+        // sourceData.push({ label: '# 個人用フォルダ', ...getSourceData('personalFolder', labels.length) })
     } else if (mode == 'telework') {
+        // 利用数, 3本グラフ, 別々
         sourceData.push({ label: '# Direct Access', ...getSourceData('DirectAccess', labels.length) })
         sourceData.push({ label: '# USBシンクライアント', ...getSourceData('USBThinClient', labels.length) })
         sourceData.push({ label: '# Cachatto', ...getSourceData('Cachatto', labels.length) })
@@ -28,8 +30,7 @@ export default getChartData
 
 function getSourceData(source, length) {
     const data = []
-    const max = source == 'personalFolder'
-        ? 200 : 300
+    const max = 700
     for (let i = 0; i < length; i++) {
         data.push(Math.floor(Math.random() * max))
     }
@@ -39,6 +40,7 @@ function getSourceData(source, length) {
 function getRecentWeek() {
     const week = []
     const baseDate = new Date()
+    baseDate.setDate(baseDate.getDate() - 1)
     for (let i = 0; i < 7; i++) {
         const date = new Date(baseDate)
         date.setDate(date.getDate() - i)
