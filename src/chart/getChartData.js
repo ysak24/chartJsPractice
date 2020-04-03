@@ -39,6 +39,7 @@ function getSourceData(source, length) {
 function getRecentWeek() {
     const week = []
     const baseDate = new Date()
+    baseDate.setDate(baseDate.getDate() - 1)
     for (let i = 0; i < 7; i++) {
         const date = new Date(baseDate)
         date.setDate(date.getDate() - i)
